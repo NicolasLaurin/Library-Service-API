@@ -1,0 +1,7 @@
+Options -MultiViews
+
+RewriteEngine On
+
+RewriteBase /LibraryService/api/
+RewriteRule ^([a-z]+)\/(.*)?$ index.php?$1=$2
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

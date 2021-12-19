@@ -1,0 +1,8 @@
+{
+    "require": {
+        "aws/aws-sdk-php": "^3.201",
+        "firebase/php-jwt": "^5.5",
+        "laminas/laminas-config": "^3.7",
+        "zircote/swagger-php": "^4.0"
+    }
+}

@@ -1,0 +1,634 @@
+openapi: 3.0.0
+info:
+  title: Library Service
+  description: A [library/bookstore] web service for managing large collections of books.
+  version: "1.0.0"
+  contact:
+    email: nicolas1231.laurin@gmail.com
+    name: Nicolas Laurin
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/NicolasLaurin/Library_Service_v1/1.0.0
+tags:
+  - name: auth
+    description: The JWT Authentication
+  - name: books
+    description: Everything related to the library's books
+  - name: clients
+    description: The users with access to this web service
+paths:
+  /auth/{LicenseKey}:
+    get:
+      tags:
+        - auth
+      summary: "Get Authentication Token"
+      operationId: getJWT
+      parameters:
+        - name: "LicenseKey"
+          in: "path"
+          description: "The client's LicenseKey"
+          required: true
+          schema:
+            type: object
+      responses:
+        '204':
+          description: "Successful creation of authentication token"
+          headers:
+            WWW-Authenticate:
+              schema:
+                type: string
+              description: Contains the generated JWT token.
+        '400':
+          description: "Invalid Request"
+  /books:
+    get:
+      tags:
+      - "books"
+      summary: "Get all books"
+      description: "Returns all books"
+      security:
+        - JWT: []
+      operationId: getAllBooks
+      responses:
+        '200':
+          description: "Successful retrieval of all books"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  oneOf:
+                    - type: "object"
+                      properties:
+                        ISBN:
+                          type: "string"
+                          format: "varchar"
+                          example: '9780062073495'
+                        book_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Murder on the Orient Express: A Hercule Poirot Mystery'
+                        author_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Agatha Christie'
+                        category_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Detective Fiction'
+                        book_type:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Hardcover'
+                        num_of_pages:
+                          type: "integer"
+                          format: "int11"
+                          example: '288'
+                    - type: "object"
+                      properties:
+                        ISBN:
+                          type: "string"
+                          format: "varchar"
+                          example: '9780441013593'
+                        book_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Dune'
+                        author_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Frank Herbert'
+                        category_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Science-Fiction'
+                        book_type:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Paperback'
+                        num_of_pages:
+                          type: "integer"
+                          format: "int11"
+                          example: '704'
+                    - type: "object"
+                      properties:
+                        ISBN:
+                          type: "string"
+                          format: "varchar"
+                          example: '9780547928227'
+                        book_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'The Hobbit'
+                        author_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'J. R. R. Tolkien'
+                        category_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Epic Fantasy'
+                        book_type:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Paperback'
+                        num_of_pages:
+                          type: "integer"
+                          format: "int11"
+                          example: '300'
+                    - type: "object"
+                      properties:
+                        ISBN:
+                          type: "string"
+                          format: "varchar"
+                          example: '9780553577129'
+                        book_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'The Diary of a Young Girl: The Definitive Edition'
+                        author_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Anne Frank'
+                        category_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Diary'
+                        book_type:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Paperback'
+                        num_of_pages:
+                          type: "integer"
+                          format: "int11"
+                          example: '400'
+                    - type: "object"
+                      properties:
+                        ISBN:
+                          type: "string"
+                          format: "varchar"
+                          example: '9781408855652'
+                        book_name:
+                          type: "string"
+                          format: "varchar"
+                          example: "Harry Potter and the Philosopher's Stone"
+                        author_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'J. K. Rowling'
+                        category_name:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Fantasy'
+                        book_type:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Paperback'
+                        num_of_pages:
+                          type: "integer"
+                          format: "int11"
+                          example: '342'
+        "404":
+          description: "No books found"
+        "401":
+          description: "Unauthorized (Invalid JWT provided)"
+        "500":
+          description: "Internal Server Error"
+    post:
+      tags:
+      - "books"
+      summary: "Add new book"
+      description: ""
+      security:
+        - JWT: []
+      operationId: addBook
+      parameters:
+      - name: "body"
+        in: "query"
+        description: "The book to be added"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            ISBN:
+              type: "string"
+              format: "varchar"
+              example: '9780547928227'
+            book_name:
+              type: "string"
+              format: "varchar"
+              example: 'The Hobbit'
+            author_name:
+              type: "string"
+              format: "varchar"
+              example: 'J. R. R. Tolkien'
+            category_name:
+              type: "string"
+              format: "varchar"
+              example: 'Epic Fantasy'
+            book_type:
+              type: "string"
+              format: "varchar"
+              example: 'Paperback'
+            num_of_pages:
+              type: "integer"
+              format: "int11"
+              example: '300'
+      responses:
+        '201':
+          description: "Book Added Suceessfully"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  ISBN:
+                    type: "string"
+                    format: "varchar"
+                    example: '9780547928227'
+                  book_name:
+                    type: "string"
+                    format: "varchar"
+                    example: 'The Hobbit'
+                  author_name:
+                    type: "string"
+                    format: "varchar"
+                    example: 'J. R. R. Tolkien'
+                  category_name:
+                    type: "string"
+                    format: "varchar"
+                    example: 'Epic Fantasy'
+                  book_type:
+                    type: "string"
+                    format: "varchar"
+                    example: 'Paperback'
+                  num_of_pages:
+                    type: "integer"
+                    format: "int11"
+                    example: '300'
+        "400":
+          description: "Invalid Request"
+        "401":
+          description: "Unauthorized (Invalid JWT provided)"
+        "500":
+          description: "Internal Server Error"    
+  /books/{ISBN}:
+    get:
+      tags:
+        - books
+      summary: "Get book with matching ISBN"
+      security:
+        - JWT: []
+      operationId: getBookByISBN
+      parameters:
+        - name: "ISBN"
+          in: "path"
+          description: "The ISBN-13 of the book"
+          required: true
+          schema:
+            type: object
+      responses:
+        '200':
+          description: "Successful retrieval of matching book"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  ISBN:
+                    type: "string"
+                    format: "varchar"
+                    example: '9780441013593'
+                  book_name:
+                    type: "string"
+                    format: "varchar"
+                    example: 'Dune'
+                  author_name:
+                    type: "string"
+                    format: "varchar"
+                    example: 'Frank Herbert'
+                  category_name:
+                    type: "string"
+                    format: "varchar"
+                    example: 'Science-Fiction'
+                  book_type:
+                    type: "string"
+                    format: "varchar"
+                    example: 'Paperback'
+                  num_of_pages:
+                    type: "integer"
+                    format: "int11"
+                    example: '704'
+        '404':
+          description: "No matches found"
+        "401":
+          description: "Unauthorized (Invalid JWT provided)"
+        '500':
+          description: "Internal Server Error"
+    put:
+      tags:
+        - books
+      summary: "Update book with matching ISBN"
+      security:
+        - JWT: []
+      operationId: updateBookByISBN
+      parameters:
+        - name: "ISBN"
+          in: "path"
+          description: "The ISBN-13 of the book"
+          required: true
+          schema:
+            type: object
+        - name: "body"
+          in: "query"
+          description: "The book to be added"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              book_name:
+                type: "string"
+                format: "varchar"
+                example: 'The Hobbit'
+              author_name:
+                type: "string"
+                format: "varchar"
+                example: 'J. R. R. Tolkien'
+              category_name:
+                type: "string"
+                format: "varchar"
+                example: 'Epic Fantasy'
+              book_type:
+                type: "string"
+                format: "varchar"
+                example: 'Hardcover'
+              num_of_pages:
+                type: "integer"
+                format: "int11"
+                example: '300'
+      responses:
+        '200':
+          description: "Successful retrieval of matching book"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  ISBN:
+                    type: "string"
+                    format: "varchar"
+                    example: '9780547928227'
+                  book_name:
+                    type: "string"
+                    format: "varchar"
+                    example: 'The Hobbit'
+                  author_name:
+                    type: "string"
+                    format: "varchar"
+                    example: 'J. R. R. Tolkien'
+                  category_name:
+                    type: "string"
+                    format: "varchar"
+                    example: 'Epic Fantasy'
+                  book_type:
+                    type: "string"
+                    format: "varchar"
+                    example: 'Hardcover'
+                  num_of_pages:
+                    type: "integer"
+                    format: "int11"
+                    example: '300'
+        '404':
+          description: "No matches found"
+        '409':
+          description: "Unable to update"
+        "401":
+          description: "Unauthorized (Invalid JWT provided)"
+        '500':
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - books
+      summary: "Delete book with matching ISBN"
+      security:
+        - JWT: []
+      operationId: deleteBookByISBN
+      parameters:
+        - name: "ISBN"
+          in: "path"
+          description: "The ISBN-13 of the book"
+          required: true
+          schema:
+            type: object
+      responses:
+        '204':
+          description: "Successful deletion of matching book"
+        '400':
+          description: "Invalid Request"
+        '404':
+          description: "No matches found"
+        "401":
+          description: "Unauthorized (Invalid JWT provided)"
+        '500':
+          description: "Internal Server Error"
+  /clients:
+    get:
+      tags:
+      - "clients"
+      summary: "Get all clients"
+      description: "Returns all clients"
+      security:
+        - JWT: []
+      operationId: getAllClients
+      responses:
+        '200':
+          description: "Successful retrieval of all clients"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  oneOf:
+                    - type: "object"
+                      properties:
+                        client_id:
+                          type: "integer"
+                          format: "int11"
+                          example: '1'
+                        clientName:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Nicolas Laurin'
+                        licenseNumber:
+                          type: "string"
+                          format: "varchar"
+                          example: 'ABC123'
+                        licenseStartDate:
+                          type: "string"
+                          format: "date"
+                          example: '2021-11-24'
+                        licenseEndDate:
+                          type: "string"
+                          format: "date"
+                          example: '2021-12-29'
+                        licenseKey:
+                          type: "string"
+                          format: "varchar"
+                          example: 'KEYABC123'
+                    - type: "object"
+                      properties:
+                        client_id:
+                          type: "integer"
+                          format: "int11"
+                          example: '2'
+                        clientName:
+                          type: "string"
+                          format: "varchar"
+                          example: 'Sebastian Mulbergy'
+                        licenseNumber:
+                          type: "string"
+                          format: "varchar"
+                          example: 'ABC1234'
+                        licenseStartDate:
+                          type: "string"
+                          format: "date"
+                          example: '2021-11-24'
+                        licenseEndDate:
+                          type: "string"
+                          format: "date"
+                          example: '2021-01-09'
+                        licenseKey:
+                          type: "string"
+                          format: "varchar"
+                          example: 'KEY123'
+        "404":
+          description: "No clients found"
+        "401":
+          description: "Unauthorized (Invalid JWT provided)"
+        "500":
+          description: "Internal Server Error"
+  /clients/{ID}:
+    get:
+      tags:
+        - clients
+      summary: "Get client with matching ID"
+      security:
+        - JWT: []
+      operationId: getClientByID
+      parameters:
+        - name: "ID"
+          in: "path"
+          description: "The client's ID"
+          required: true
+          schema:
+            type: object
+      responses:
+        '200':
+          description: "Successful retrieval of matching client"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  client_id:
+                    type: "integer"
+                    format: "int11"
+                    example: '1'
+                  clientName:
+                    type: "string"
+                    format: "varchar"
+                    example: 'Nicolas Laurin'
+                  licenseNumber:
+                    type: "string"
+                    format: "varchar"
+                    example: 'ABC123'
+                  licenseStartDate:
+                    type: "string"
+                    format: "date"
+                    example: '2021-11-24'
+                  licenseEndDate:
+                    type: "string"
+                    format: "date"
+                    example: '2021-12-29'
+                  licenseKey:
+                    type: "string"
+                    format: "varchar"
+                    example: 'KEYABC123'
+        '404':
+          description: "No matches found"
+        "401":
+          description: "Unauthorized (Invalid JWT provided)"
+        '500':
+          description: "Internal Server Error"
+components:
+  securitySchemes:
+    JWT:
+      type: "http"
+      scheme: "bearer"
+  schemas:
+    Books:
+      type: object
+      required:
+        - ISBN
+        - book_name
+        - author_name
+        - category_name
+        - book_type
+        - num_of_pages
+      properties:
+        ISBN:
+          type: string
+          example: '9781408855652'
+        book_name:
+          type: string
+          example: "Harry Potter and the Philosopher's Stone"
+        author_name:
+          type: string
+          example: "J. K. Rowling"
+        category_name:
+          type: string
+          example: "Fantasy"
+        book_type:
+          type: string
+          example: "Paperback"
+        num_of_pages:
+          type: integer
+          format: "int11"
+          example: '342'
+    Clients:
+      type: object
+      required:
+        - clientName
+        - licenseNumber
+        - licenseStartDate
+        - licenseEndDate
+        - licenseKey
+      properties:
+        client_id:
+          type: integer
+          format: "int11"
+          example: '1'
+        clientName:
+          type: string
+          format: "varchar"
+          example: 'Nicolas Laurin'
+        licenseNumber:
+          type: string
+          format: "varchar"
+          example: 'ABC123'
+        licenseStartDate:
+          type: string
+          format: "date"
+          example: '2021-11-24'
+        licenseEndDate:
+          type: string
+          format: "date"
+          example: '2021-12-29'
+        licenseKey:
+          type: string
+          format: "varchar"
+          example: 'KEYABC123'

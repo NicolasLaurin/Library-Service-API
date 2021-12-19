@@ -1,0 +1,7 @@
+Options -MultiViews
+
+RewriteEngine On
+
+RewriteBase /LibraryService/
+
+RewriteRule ^$ defaultRedirect.php

@@ -1,0 +1,73 @@
+###
+###Request JWT
+GET http://localhost/LibraryService/api/auth/KEYABC123 HTTP/1.1
+Accept: application/json
+
+###
+###GET ALL BOOKS:
+GET http://localhost/LibraryService/api/books/ HTTP/1.1
+Accept: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Mzk2ODkyMjcsImp0aSI6InR3ZUJWVHFIWnlIdDVVSGlOdWxYXC9RPT0iLCJpc3MiOiJsb2NhbGhvc3QiLCJuYmYiOjE2Mzk2ODkyMjcsImV4cCI6MTY0MjEwODQyNywic3ViIjoiS0VZQUJDMTIzIn0.87Az3dLUAjyt0lOcMWEHN9JD9yH8w28_lv_f6alxkZ_x4ifL7RfCIylCuuyW27jZdNc-r1y6ZqXzJKIduYLeCw
+
+###
+###GET SPECIFIC BOOK (Dune):
+GET http://localhost/LibraryService/api/books/9780441013593 HTTP/1.1
+Accept: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Mzk2ODkyMjcsImp0aSI6InR3ZUJWVHFIWnlIdDVVSGlOdWxYXC9RPT0iLCJpc3MiOiJsb2NhbGhvc3QiLCJuYmYiOjE2Mzk2ODkyMjcsImV4cCI6MTY0MjEwODQyNywic3ViIjoiS0VZQUJDMTIzIn0.87Az3dLUAjyt0lOcMWEHN9JD9yH8w28_lv_f6alxkZ_x4ifL7RfCIylCuuyW27jZdNc-r1y6ZqXzJKIduYLeCw
+
+###
+###GET SPECIFIC BOOK (The Hobbit):
+GET http://localhost/LibraryService/api/books/9780547928227 HTTP/1.1
+Accept: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Mzk2ODkyMjcsImp0aSI6InR3ZUJWVHFIWnlIdDVVSGlOdWxYXC9RPT0iLCJpc3MiOiJsb2NhbGhvc3QiLCJuYmYiOjE2Mzk2ODkyMjcsImV4cCI6MTY0MjEwODQyNywic3ViIjoiS0VZQUJDMTIzIn0.87Az3dLUAjyt0lOcMWEHN9JD9yH8w28_lv_f6alxkZ_x4ifL7RfCIylCuuyW27jZdNc-r1y6ZqXzJKIduYLeCw
+
+###
+###CREATE NEW BOOK (The Hobbit):
+POST http://localhost/LibraryService/api/books/ HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Mzk2ODkyMjcsImp0aSI6InR3ZUJWVHFIWnlIdDVVSGlOdWxYXC9RPT0iLCJpc3MiOiJsb2NhbGhvc3QiLCJuYmYiOjE2Mzk2ODkyMjcsImV4cCI6MTY0MjEwODQyNywic3ViIjoiS0VZQUJDMTIzIn0.87Az3dLUAjyt0lOcMWEHN9JD9yH8w28_lv_f6alxkZ_x4ifL7RfCIylCuuyW27jZdNc-r1y6ZqXzJKIduYLeCw
+
+{
+    "ISBN": "9780547928227",
+    "book_name": "The Hobbit",
+    "author_name": "J. R. R. Tolkien",
+    "category_name": "Epic Fantasy",
+    "book_type": "Paperback",
+    "num_of_pages": "300"
+}
+
+###
+###UPDATE A BOOK (The Hobbit):
+PUT http://localhost/LibraryService/api/books/9780547928227 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Mzk2ODkyMjcsImp0aSI6InR3ZUJWVHFIWnlIdDVVSGlOdWxYXC9RPT0iLCJpc3MiOiJsb2NhbGhvc3QiLCJuYmYiOjE2Mzk2ODkyMjcsImV4cCI6MTY0MjEwODQyNywic3ViIjoiS0VZQUJDMTIzIn0.87Az3dLUAjyt0lOcMWEHN9JD9yH8w28_lv_f6alxkZ_x4ifL7RfCIylCuuyW27jZdNc-r1y6ZqXzJKIduYLeCw
+
+{
+    "book_name": "The Hobbit",
+    "author_name": "J. R. R. Tolkien",
+    "category_name": "Fantasy",
+    "book_type": "Hardcover",
+    "num_of_pages": "300"
+}
+
+###
+###DELETE A BOOK (The Hobbit):
+DELETE http://localhost/LibraryService/api/books/9780547928227 HTTP/1.1
+Accept: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Mzk2ODkyMjcsImp0aSI6InR3ZUJWVHFIWnlIdDVVSGlOdWxYXC9RPT0iLCJpc3MiOiJsb2NhbGhvc3QiLCJuYmYiOjE2Mzk2ODkyMjcsImV4cCI6MTY0MjEwODQyNywic3ViIjoiS0VZQUJDMTIzIn0.87Az3dLUAjyt0lOcMWEHN9JD9yH8w28_lv_f6alxkZ_x4ifL7RfCIylCuuyW27jZdNc-r1y6ZqXzJKIduYLeCw
+
+###
+###GET ALL CLIENTS:
+GET http://localhost/LibraryService/api/clients/ HTTP/1.1
+Accept: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Mzk2ODkyMjcsImp0aSI6InR3ZUJWVHFIWnlIdDVVSGlOdWxYXC9RPT0iLCJpc3MiOiJsb2NhbGhvc3QiLCJuYmYiOjE2Mzk2ODkyMjcsImV4cCI6MTY0MjEwODQyNywic3ViIjoiS0VZQUJDMTIzIn0.87Az3dLUAjyt0lOcMWEHN9JD9yH8w28_lv_f6alxkZ_x4ifL7RfCIylCuuyW27jZdNc-r1y6ZqXzJKIduYLeCw
+
+###
+###GET SPECIFIC CLIENT:
+GET http://localhost/LibraryService/api/clients/1 HTTP/1.1
+Accept: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2Mzk2ODkyMjcsImp0aSI6InR3ZUJWVHFIWnlIdDVVSGlOdWxYXC9RPT0iLCJpc3MiOiJsb2NhbGhvc3QiLCJuYmYiOjE2Mzk2ODkyMjcsImV4cCI6MTY0MjEwODQyNywic3ViIjoiS0VZQUJDMTIzIn0.87Az3dLUAjyt0lOcMWEHN9JD9yH8w28_lv_f6alxkZ_x4ifL7RfCIylCuuyW27jZdNc-r1y6ZqXzJKIduYLeCw
+
+###
